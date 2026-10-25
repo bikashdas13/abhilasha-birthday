@@ -1,0 +1,663 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Universe | Abhilasha</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; }
+
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(
+    160deg,
+    #fff4f8 0%,
+    #ffe5f0 48%,
+    #f3e7ff 100%
+  );
+  color: #754b68;
+  font-family: "DM Sans", sans-serif;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+
+#stars {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 35px 22px;
+}
+
+.content { max-width: 650px; }
+
+.eyebrow {
+  color: #dfc38a;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+
+.moon {
+  font-size: 55px;
+  color: #dfc38a;
+  margin: 35px 0 20px;
+  text-shadow: none #dfc38a80;
+}
+
+h1, h2 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: clamp(58px, 12vw, 94px);
+  line-height: .95;
+  margin: 0;
+}
+
+h1 span {
+  display: block;
+  color: #c94f91;
+  font-style: italic;
+  text-shadow: 0 2px 12px #e8a0c755;
+}
+
+.subtitle {
+  color: #aab4c8;
+  font-size: 13px;
+  line-height: 2;
+  margin: 28px auto;
+}
+
+button {
+  background: transparent;
+  color: #f5ecd9;
+  border: 1px solid #dfc38a80;
+  padding: 15px 23px;
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: .3s;
+}
+
+button:hover {
+  background: #dfc38a;
+  color: #080d1b;
+}
+
+#letter {
+  display: none;
+  margin-top: 35px;
+  padding: 28px;
+  border: 1px solid #dfc38a40;
+  background: #0e1421cc;
+  text-align: left;
+  animation: fadeIn 1s ease both;
+}
+
+#letter h2 {
+  color: #dfc38a;
+  font-size: 32px;
+  text-align: center;
+}
+
+#letter p {
+  color: #d2d7e2;
+  line-height: 2;
+  font-size: 14px;
+}
+
+.signature {
+  color: #dfc38a !important;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 22px !important;
+  font-style: italic;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  #letter { padding: 20px; }
+}
+
+/* Birthday cake reveal */
+#birthday-cake {
+    display: none;
+    position: relative;
+    min-height: 100vh;
+    padding: 60px 20px;
+    text-align: center;
+    color: #fff0fb;
+    background: radial-gradient(
+        ellipse at top,
+        #572078 0%,
+        #24103f 48%,
+        #090b20 100%
+    );
+    animation: cakeAppear 1.2s ease both;
+}
+
+#birthday-cake.cake-reveal {
+    display: block;
+}
+
+#birthday-cake h2 {
+    color: #ffd1f0;
+    font-family: Georgia, serif;
+    font-size: clamp(28px, 5vw, 44px);
+    margin-bottom: 20px;
+    text-shadow: 0 0 22px #ff65c8;
+}
+#cake-scene {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 35px;
+    perspective: 1000px;
+    position: relative;
+    margin-top: 20px;
+}
+
+.cake-3d {
+    position: relative;
+    width: min(340px, 85vw);
+    height: 250px;
+    transform-style: preserve-3d;
+    animation: cakeFloat 4s ease-in-out infinite;
+    margin-top: 35px;
+    overflow: visible;
+}
+
+.cake-plate {
+    position: absolute;
+    bottom: 0;
+    left: -5%;
+    width: 111%;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #ffe7fa, #c78add 55%, #69338d);
+    box-shadow: 0 12px 35px #0008;
+}
+.cake-bottom,
+.cake-top {
+    position: absolute;
+    left: 10%;
+    width: 80%;
+    border-radius: 16px 16px 25px 25px;
+    background: linear-gradient(90deg, #8e347e, #f3a0d8 45%, #a343a0);
+    box-shadow: inset -15px 0 20px #54124b66,
+                0 12px 20px #0005;
+}
+
+
+.cake-bottom {
+    bottom: 22px;
+    height: 95px;
+    left: -5%;
+    width: 110%;
+}
+
+
+.cake-top {
+    bottom: 105px;
+    height: 70px;
+    border-radius: 50% 50% 16px 16px / 24% 24% 12px 12px;
+    background: linear-gradient(90deg, #e98acb, #fff0fa 48%, #d86fba);
+}
+
+.cake-top::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -12px;
+    height: 25px;
+    border-radius: 40%;
+    background: #ffdbf2;
+}
+
+
+.cake-candles {
+    position: absolute;
+    z-index: 9999;
+    top: 5px;
+    left: 0;
+    right: 0;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 5px;
+    flex-wrap: nowrap;
+    pointer-events: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.cake-candle {
+    position: relative;
+    flex-shrink: 0;
+    width: 7px;
+    height: 38px;
+    border-radius: 3px;
+    background: repeating-linear-gradient(
+        135deg,
+        #fff 0 5px,
+        #ff68b5 5px 10px
+    );
+    box-shadow: 0 0 5px #ffb6e7;
+}
+
+.cake-candle::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 15px;
+    left: -1.5px;
+    top: -15px;
+    border-radius: 60% 40% 60% 40%;
+    background: radial-gradient(
+        ellipse at 50% 75%,
+        #fff9a8,
+        #ff9b35 60%,
+        #ff4eac
+    );
+    box-shadow: 0 0 12px #ff9b35;
+    animation: candleFlicker .7s ease-in-out infinite alternate;
+}
+
+.cake-sparkles {
+    color: #ffd5f3;
+    font-size: 22px;
+    letter-spacing: 8px;
+}
+ .biscuit-surprise {
+    position: absolute;
+    width: 48px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    opacity: 0.95;
+    right: 7%;
+    bottom: 12px;
+    z-index: 5;
+}
+
+.biscuit-surprise p,
+.biscuit-surprise span {
+  display: none;
+}
+
+.biscuit-surprise img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.biscuit-surprise img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin: 15px auto;
+}
+
+.biscuit-surprise p {
+    color: #ffe1f6;
+}
+
+.biscuit-surprise span {
+    color: #ffd1f0;
+    font-style: italic;
+}
+
+@keyframes cakeFloat {
+    0%, 100% { transform: rotateX(4deg) translateY(0); }
+    50% { transform: rotateX(4deg) translateY(-8px); }
+}
+
+@keyframes candleFlicker {
+    from { transform: scale(1) rotate(-4deg); }
+    to { transform: scale(.88, 1.12) rotate(4deg); }
+}
+
+@keyframes cakeAppear {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+    #birthday-cake { padding: 40px 14px; }
+    .cake-3d { transform: scale(.9); }
+}
+
+/* Pink theme for the first page */
+main .content {
+    color: #ffe3f0;
+}
+
+main .content .eyebrow,
+main .content .subtitle {
+    color: #ffc1dc;
+}
+
+main .content h1 {
+    color: #ffd6e8;
+    text-shadow: 0 0 18px #ff8fbd99;
+}
+
+main .content h1 span {
+    color: #ff91c8;
+}
+
+main .content button {
+    background: linear-gradient(135deg, #ff9acb, #d96ba8);
+    color: #ffffff;
+    border: 1px solid #ffc5e1;
+    box-shadow: 0 0 18px #ff8fbd55;
+}
+
+main .content input {
+    background: #fff0f7;
+    color: #713d59;
+    border: 1px solid #f5a4c9;
+}
+
+main .content input::placeholder {
+    color: #b77b9b;
+}
+
+/* First-page birthday puzzle */
+#equation-puzzle {
+  position: relative;
+  z-index: 1;
+  padding: 45px 20px 65px;
+  color: #754b68;
+  background: rgba(255, 248, 252, 0.72);
+  border-top: 1px solid #efc5dc;
+}
+
+#equation-puzzle .puzzle-label {
+  color: #bd729a;
+  letter-spacing: 2px;
+  font-size: 10px;
+}
+
+#equation-puzzle h2 {
+  color: #925c7c;
+  font-size: clamp(25px, 5vw, 36px);
+}
+
+#equation-puzzle p {
+  color: #98758d;
+}
+
+#equation-puzzle .equation {
+  color: #bd5f98;
+  font-size: clamp(32px, 7vw, 48px);
+  margin: 25px 0;
+}
+
+#equation-puzzle input {
+  background: #fffafd;
+  color: #754b68;
+  border: 1px solid #e7b3d0;
+  border-radius: 12px;
+  padding: 13px;
+}
+
+#equation-puzzle button {
+  background: #d978aa;
+  color: white;
+  border: 1px solid #d978aa;
+  border-radius: 12px;
+  padding: 13px 20px;
+  box-shadow: 0 5px 15px #d978aa30;
+}
+
+#equation-puzzle button:hover {
+  background: #c96599;
+}
+
+#puzzle-feedback {
+  color: #b6538b;
+}
+
+</style>
+</head>
+
+<body>
+<canvas id="stars"></canvas>
+
+<main>
+  <div class="content">
+   
+<p class="eyebrow">A Day to Celebrate You ✿</p>
+
+<h1><span class="black-title">A little</span> <span>birthday magic.</span></h1>
+
+<p class="subtitle">
+    A little surprise for your special day,<br>
+    made just to bring you a smile. ♡
+</p>
+
+
+<script>
+
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+let stars = [];
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  stars = Array.from({ length: 130 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.4 + .2,
+    a: Math.random() * .7 + .2
+  }));
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (const s of stars) {
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(239, 218, 174, ${s.a})`;
+    ctx.fill();
+  }
+
+  requestAnimationFrame(draw);
+}
+
+window.addEventListener("resize", resize);
+resize();
+draw();
+
+window.addEventListener("load", function () {
+    const graph = document.getElementById("birthday-graph");
+    if (!graph) return;
+
+    const ctx = graph.getContext("2d");
+    const w = graph.width;
+    const h = graph.height;
+
+    const originX = w / 2;
+    const originY = h / 2;
+    const endX = w - 30;
+    const endY = 30;
+    const duration = 1800;
+    const startTime = performance.now();
+
+    function drawGrid() {
+        ctx.clearRect(0, 0, w, h);
+
+        // Light lavender background
+        ctx.fillStyle = "#fffafd";
+        ctx.fillRect(0, 0, w, h);
+
+        // Purple grid
+        ctx.strokeStyle = "rgba(151, 94, 170, 0.35)";
+        ctx.lineWidth = 1;
+
+        for (let x = 0; x <= w; x += 25) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, h);
+            ctx.stroke();
+        }
+
+        for (let y = 0; y <= h; y += 25) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(w, y);
+            ctx.stroke();
+        }
+
+        // Darker purple axes
+        ctx.strokeStyle = "#8950a0";
+        ctx.lineWidth = 2;
+
+        ctx.beginPath();
+        ctx.moveTo(20, originY);
+        ctx.lineTo(w - 10, originY);
+        ctx.moveTo(originX, h - 10);
+        ctx.lineTo(originX, 10);
+        ctx.stroke();
+
+        // Readable label
+        ctx.fillStyle = "#75406f";
+        ctx.font = "bold 16px sans-serif";
+        ctx.fillText("y = x ✨", 12, 22);
+    }
+
+    function animateLine(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+
+        drawGrid();
+
+        // Animated bright pink line
+        ctx.strokeStyle = "#e34f9b";
+        ctx.lineWidth = 4;
+        ctx.lineCap = "round";
+
+        ctx.beginPath();
+        ctx.moveTo(originX, originY);
+        ctx.lineTo(
+            originX + (endX - originX) * progress,
+            originY + (endY - originY) * progress
+        );
+        ctx.stroke();
+
+        if (progress < 1) {
+            requestAnimationFrame(animateLine);
+        }
+    }
+
+    requestAnimationFrame(animateLine);
+});
+
+
+</script>
+
+<section id="equation-puzzle">
+    <p class="puzzle-label">A LITTLE CHALLENGE FOR YOU ✨</p>
+    <h2>One equation. One special number.</h2>
+    <p>Solve this to unlock your birthday surprise.</p>
+
+    <div class="equation">x - 7 = 12</div>
+
+    
+<form id="puzzle-form">
+    <input id="answer" type="number" placeholder="Your answer..." required>
+    <button type="submit">Unlock my surprise 💜</button>
+</form>
+
+<p id="puzzle-feedback"></p>
+<canvas id="birthday-graph" width="500" height="300"></canvas>
+</section>
+
+<section id="birthday-cake" style="display: none; min-height: 100vh; padding: 40px 20px;">
+
+    <div class="bouquet">
+<img src="{{ url_for('static', filename='bouquet.png') }}" alt="Birthday bouquet" class="bouquet-image">
+
+
+    <article id="letter">
+        <h2>Dear Abhilasha,</h2>
+
+        <p>
+            This is your 19th birthday, if I’m not wrong. Nineteen years of happiness, sorrow, achievements, and perhaps a few disappointments here and there too. I hope life has given you a fair share of all of these, and that each of them has helped shape you into the person you are today.
+        </p>
+
+        <p>
+            I haven’t known you for a very long time, but from whatever little I’ve come to know of you, you seem like a genuinely wonderful person. A great CR, a great friend, and someone people are lucky to have around. So, thank you for being that person. And I hope you get to live at least four times as long as you already have, because, of course, you still have to witness Halley’s Comet isn't it ?
+        </p>
+
+        <p>
+            Since this is your last year as a teenager, with one foot already stepping into your twenties, I hope you make the most of it. Enjoy the little things, collect beautiful memories, take chances, laugh a little louder, and give yourself enough reasons to look back at these years with a smile.
+        </p>
+
+        <p>
+            Happy 19th birthday, Abhilasha, I hope the year ahead treats you kindly and brings you plenty of reasons to be happy.
+        </p>
+    </article>
+
+</section>
+
+
+<script>
+document.getElementById("puzzle-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const answer = document.getElementById("answer").value;
+    const feedback = document.getElementById("puzzle-feedback");
+
+   if (Number(answer) === 19) {
+    feedback.textContent = "You got it, birthday girl! 💜✨";
+
+   const surprise = document.getElementById("birthday-cake");
+surprise.style.display = "block";
+
+const letter = document.getElementById("letter");
+letter.style.display = "block";
+
+surprise.scrollIntoView({ behavior: "smooth", block: "start" });
+} else {
+    feedback.textContent = "Almost! Try again, birthday girl ✨";
+}
+});
+</script>
+
+</body>
+</html>
